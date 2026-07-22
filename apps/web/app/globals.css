@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  /* Por-Kit product theme — pig / barnyard (dashboard + marketing only) */
+  --pk-soil: #3d2914;
+  --pk-barn: #8b3a2a;
+  --pk-hay: #e8c547;
+  --pk-cream: #f7f0e2;
+  --pk-mud: #5c4033;
+  --pk-snout: #e89a8a;
+  --pk-leaf: #4a7c59;
+  --pk-ink: #1f140c;
+  --pk-paper: #fffaf3;
+  --background: var(--pk-paper);
+  --foreground: var(--pk-ink);
+  --accent: var(--pk-barn);
+  --accent-soft: var(--pk-snout);
+  --surface: var(--pk-cream);
+  --border: color-mix(in srgb, var(--pk-mud) 25%, transparent);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-soil: var(--pk-soil);
+  --color-barn: var(--pk-barn);
+  --color-hay: var(--pk-hay);
+  --color-cream: var(--pk-cream);
+  --color-mud: var(--pk-mud);
+  --color-leaf: var(--pk-leaf);
+  --font-sans: var(--font-display);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), Georgia, serif;
+}
+
+.pk-hero-sky {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, color-mix(in srgb, var(--pk-hay) 45%, transparent), transparent),
+    radial-gradient(ellipse 70% 50% at 85% 20%, color-mix(in srgb, var(--pk-snout) 35%, transparent), transparent),
+    linear-gradient(180deg, #cfe6f2 0%, var(--pk-cream) 55%, var(--pk-paper) 100%);
+}
+
+.pk-barn-stripe {
+  background-image: repeating-linear-gradient(
+    -12deg,
+    transparent,
+    transparent 18px,
+    color-mix(in srgb, var(--pk-barn) 8%, transparent) 18px,
+    color-mix(in srgb, var(--pk-barn) 8%, transparent) 19px
+  );
+}

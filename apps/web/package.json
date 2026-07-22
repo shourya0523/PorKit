@@ -1,0 +1,37 @@
+{
+  "name": "@porkit/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.12.0",
+    "@neondatabase/serverless": "^0.10.4",
+    "@porkit/shared": "workspace:*",
+    "drizzle-orm": "^0.39.3",
+    "inngest": "^3.32.0",
+    "mammoth": "^1.9.0",
+    "next": "16.2.11",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "stripe": "^17.7.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.11",
+    "tailwindcss": "^4",
+    "typescript": "^5.9.3",
+    "vitest": "^3.0.5"
+  }
+}
