@@ -15,6 +15,10 @@ import {
   retainsRevisionHistory,
   type EvidenceBundle,
 } from "@porkit/shared";
+import {
+  createDrizzleStore,
+  type DrizzleStore,
+} from "./drizzle-store";
 
 export type ContentStatus = "draft" | "published" | "needs_review";
 
@@ -736,14 +740,26 @@ function extractTitle(text: string): string | undefined {
   return m?.[1]?.trim();
 }
 
-/** Singleton used by API routes in local/dev without Neon. */
-let singleton: MemoryStore | null = null;
-export function getStore(): MemoryStore {
-  if (!singleton) singleton = createMemoryStore();
-  return singleton;
+export type AppStore = MemoryStore | DrizzleStore;
+
+/** Singleton used by API routes — Neon when DATABASE_URL is set, else memory. */
+let memorySingleton: MemoryStore | null = null;
+let drizzleSingleton: DrizzleStore | null = null;
+
+export function getStore(): AppStore {
+  // Unit tests always use the in-memory store even if DATABASE_URL is present.
+  if (process.env.DATABASE_URL && process.env.NODE_ENV !== "test") {
+    if (!drizzleSingleton) {
+      drizzleSingleton = createDrizzleStore();
+    }
+    return drizzleSingleton;
+  }
+  if (!memorySingleton) memorySingleton = createMemoryStore();
+  return memorySingleton;
 }
 
 export function resetStore() {
-  singleton = createMemoryStore();
-  return singleton;
+  drizzleSingleton = null;
+  memorySingleton = createMemoryStore();
+  return memorySingleton;
 }

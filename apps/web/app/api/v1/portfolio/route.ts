@@ -8,9 +8,12 @@ export async function GET(req: Request) {
     url.searchParams.get("key") ??
     "";
   const origin = req.headers.get("origin");
-  const isBrowser = Boolean(origin) || req.headers.get("sec-fetch-mode") === "cors";
+  const isBrowser =
+    Boolean(origin) || req.headers.get("sec-fetch-mode") === "cors";
 
-  const result = getStore().readPublishedPortfolio(key, origin, { isBrowser });
+  const result = await Promise.resolve(
+    getStore().readPublishedPortfolio(key, origin, { isBrowser }),
+  );
   if (!result.ok) {
     return NextResponse.json(
       { error: result.error },
@@ -19,7 +22,7 @@ export async function GET(req: Request) {
   }
   return NextResponse.json(result.data, {
     headers: {
-      "Access-Control-Allow-Origin": origin && result.ok ? origin : "*",
+      "Access-Control-Allow-Origin": origin ?? "*",
       Vary: "Origin",
     },
   });

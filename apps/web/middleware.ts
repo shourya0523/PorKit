@@ -1,13 +1,16 @@
 import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
+/** Dashboard + authenticated mutation APIs. Webhooks stay public (signature-verified). */
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/portfolio(.*)",
   "/keys(.*)",
   "/api/imports(.*)",
-  "/api/github(.*)",
-  "/api/stripe(.*)",
+  "/api/portfolio(.*)",
+  "/api/v1/keys(.*)",
+  "/api/github/connect(.*)",
+  "/api/github/repos(.*)",
 ]);
 
 const clerkConfigured = Boolean(

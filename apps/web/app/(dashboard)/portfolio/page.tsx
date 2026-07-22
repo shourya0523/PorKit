@@ -1,8 +1,12 @@
+import { requireClerkUserId } from "@/lib/auth";
 import { getStore } from "@/lib/content/store";
 import { PortfolioActions } from "./portfolio-actions";
 
-export default function PortfolioPage() {
-  const content = getStore().listPortfolioContent("local-dev-user");
+export default async function PortfolioPage() {
+  const clerkUserId = await requireClerkUserId();
+  const content = await Promise.resolve(
+    getStore().listPortfolioContent(clerkUserId),
+  );
 
   return (
     <div className="mx-auto max-w-4xl space-y-8">
